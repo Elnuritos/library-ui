@@ -26,3 +26,5 @@ export const bookList: Book[] = [
         pages: 436
     }
 ]
+
+export const BASE_URL = 'http://localhost:8080/api'
