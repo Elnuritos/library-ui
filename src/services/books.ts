@@ -15,7 +15,7 @@ const addBook = async (book: Book): Promise<Book> => {
     return appAxios.post('/books/', book).then(
         (response) => {
             const data = response.data;
-            console.log("USER ADDED IS ", data);
+            console.log("BOOK ADDED IS ", data);
 
             return data;
         });
