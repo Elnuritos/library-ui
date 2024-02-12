@@ -1,1 +1,1 @@
-export { default as BookService } from './books'
+export { default as PublicationService } from './publications'

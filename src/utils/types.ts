@@ -1,8 +1,5 @@
-export type Book =  {
-    isbn: string;
+export type Publication =  {
+    id: string;
     title: string;
-    author: string;
-    category: string;
-    publicationYear: number;
-    pages: number;
+    content: string;
 }
