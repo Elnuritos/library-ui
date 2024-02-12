@@ -15,6 +15,7 @@ export type RegisterFormData = {
     email: string;
     password: string;
     username: string;
+    userType: string;
 }
 
 const schema = yup
@@ -23,7 +24,8 @@ const schema = yup
         lastName: yup.string().required(),
         email: yup.string().email().required(),
         username: yup.string().min(6).max(20).required(),
-        password: yup.string().min(8).required()
+        password: yup.string().min(8).required(),
+        userType: yup.string().required(),
     })
     .required()
 
@@ -92,6 +94,16 @@ const Registration = (props: Props) => {
                         <input type="password" className="form-control"  {...register("password")} />
                         {errors.password && <small style={{ color: "red" }}>{errors.password.message}</small>}
                     </div>
+                    <div className="mb-3">
+                        <label className="form-label">User Type</label>
+                        <select className="form-control" {...register("userType")}>
+                            <option value="">Select User Type</option>
+                            <option value={'GUEST'}>Guest</option>
+                            <option value={'PUBLISHER'}>Publisher</option>
+                        </select>
+                        {errors.userType && <small style={{ color: "red" }}>{errors.userType.message}</small>}
+                    </div>
+
                     <button type="submit" className="btn btn-primary" disabled={loading}>
                         {loading ? 'Submitting...' : 'Submit'}
                     </button>
