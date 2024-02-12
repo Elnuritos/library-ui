@@ -1,7 +1,7 @@
 import appAxios from "./appAxios";
-import {  Publication } from "../utils/types";
+import {  Publication, PublicationForCreation } from "../utils/types";
 
-const getPublications = async (): Promise<Publication[]> => {
+export const getPublications = async (): Promise<Publication[]> => {
     return appAxios.get(`/publications/`).then(
         (response) => {
             const data = response.data;
@@ -10,8 +10,16 @@ const getPublications = async (): Promise<Publication[]> => {
             return data;
         });
 }
+export const getPublicationById = async (id: string): Promise<Publication> => {
+    return appAxios.get(`/publications/${id}`).then(
+        (response) => {
+            const data = response.data;
+            console.log(data);
+            return data;
+        });
+};
 
-const addPublication = async (publication: Publication): Promise<Publication> => {
+export const addPublication = async (publication: PublicationForCreation): Promise<PublicationForCreation> => {
     return appAxios.post('/publications/', publication).then(
         (response) => {
             const data = response.data;
@@ -21,17 +29,22 @@ const addPublication = async (publication: Publication): Promise<Publication> =>
         });
 }
 
-const updatePublication = async (data: Publication) => {
+export const updatePublication = async (data: Publication) => {
     return appAxios
         .put(`/publications/${data.id}`, data)
         .then((response) => response.data);
 };
 
-const deletePublication = async (id: string) => {
+export const deletePublication = async (id: string) => {
     return appAxios.delete(`publications/${id}`).then(response => {
         const { data } = response;
         return data;
     });
 };
 
-export default { getPublications, addPublication, updatePublication, deletePublication };
+export const searchPublicationsByTitle = async (title: string) => {
+    const response = await appAxios.get(`/api/publications/search?title=${title}`);
+    return response.data;
+  };
+
+//export default { getPublications,getPublicationById, addPublication, updatePublication, deletePublication,searchPublicationsByTitle };

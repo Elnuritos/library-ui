@@ -1,7 +1,8 @@
 import { useMutation } from 'react-query';
-import PublicationService from '../services/publications';
-import { Publication } from '../utils/types';
+import {addPublication} from '../services/publications';
+import { PublicationForCreation } from '../utils/types';
 
 export const useAddPublication = () => {
-    return useMutation((publication: Publication) => PublicationService.addPublication(publication));
+    return useMutation((publication: PublicationForCreation) => addPublication(publication));
 }
+export default useAddPublication;

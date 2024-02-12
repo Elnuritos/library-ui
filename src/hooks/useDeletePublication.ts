@@ -1,6 +1,7 @@
 import { useMutation } from 'react-query';
-import PublicationService from '../services/publications';
+import {deletePublication} from '../services/publications';
 
 export const useDeletePublication = () => {
-    return useMutation((id: string) => PublicationService.deletePublication(id));
+    return useMutation((id: string) => deletePublication(id));
 }
+export default useDeletePublication;

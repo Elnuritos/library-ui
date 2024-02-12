@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
-import PublicationService from '../services/publications';
+import {getPublications} from '../services/publications';
 
 export const usePublications = () => {
-    return useQuery('publications', PublicationService.getPublications);
+    return useQuery('publications', getPublications);
 }
 export default usePublications;

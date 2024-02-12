@@ -1,27 +1,49 @@
-type Props = {}
+const About = () => {
+  const publications = [
+    { title: 'The Evolution of Libraries', content: 'Exploring the transformation of libraries from physical to digital spaces.' },
+    { title: 'Digital Age and Libraries', content: 'How the digital age has influenced the way we access and perceive information.' },
+    { title: 'Archiving the Web', content: 'Challenges and strategies in preserving the ever-changing web content for future generations.' },
+  ];
 
-const About = (props: Props) => {
   return (
-    <div className="col-12 col-md-3 m-2">
-      <div className="accordion" id="accordionExample">
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="headingOne">
-            <button className="accordion-button" type="button" 
-              data-bs-toggle="collapse" data-bs-target="#collapseOne" 
-              aria-expanded="true" aria-controls="collapseOne">
-              Glad to have you.
-            </button>
-          </h2>
-          <div id="collapseOne" className="accordion-collapse collapse show" 
-          aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div className="accordion-body">
-              Welcome to our <strong>Library Application!</strong>
+    <div className="container mt-5">
+      <h1 className="text-center mb-5">About Our Library Application</h1>
+
+
+      <div className="mb-4">
+        <h2>About the Application</h2>
+        <p>Our Library Application aims to revolutionize how you interact with digital and physical books. It offers an extensive catalog, user-friendly management features, and insights into your reading habits.</p>
+      </div>
+
+
+      <div className="mb-4">
+        <h2>Our Team</h2>
+        <p>Comprised of passionate developers, designers, and librarians, our team is dedicated to providing the best experience for our users. We believe in the power of knowledge and strive to make it accessible to everyone.</p>
+      </div>
+
+
+      <div className="mb-4">
+        <h2>Sample Publications</h2>
+        <div className="row">
+          {publications.map((publication, index) => (
+            <div key={index} className="col-sm-4 mb-3">
+              <div className="card h-100">
+                <div className="card-body">
+                  <h5 className="card-title">{publication.title}</h5>
+                  <p className="card-text">{publication.content}</p>
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
-    </div>
-  )
-}
 
-export default About
+      <div>
+        <h2>Frequently Asked Questions</h2>
+        <p>Here, you can find answers to common questions about using the application, membership, and more. This section is updated regularly to reflect user inquiries and feedback.</p>
+      </div>
+    </div>
+  );
+};
+
+export default About;

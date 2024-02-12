@@ -3,3 +3,8 @@ export type Publication =  {
     title: string;
     content: string;
 }
+export type PublicationForCreation = {
+    title: string;
+    content: string;
+  };
+  

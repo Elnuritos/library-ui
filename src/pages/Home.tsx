@@ -1,13 +1,12 @@
-import BookList from '../components/BookList'
+import SearchPublicationsPage from './SearchPublicationsPage'; 
 
-type Props = {}
-
-const Home = (props: Props) => {
+function Home() {
     return (
-        <>
-            <BookList />
-        </>
-    )
+        <div>
+            <h2>Welcome to Our Application!</h2>
+            <SearchPublicationsPage /> 
+        </div>
+    );
 }
 
-export default Home
+export default Home;
