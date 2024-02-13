@@ -7,7 +7,7 @@ import { login } from "../store/authSlice"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
-type Props = {}
+
 
 export type LoginFormData = {
   email: string;
@@ -21,7 +21,7 @@ const schema = yup
   })
   .required()
 
-const Login = (props: Props) => {
+const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
     resolver: yupResolver(schema)
   })

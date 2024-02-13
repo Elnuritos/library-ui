@@ -14,13 +14,13 @@ function SearchPublicationsPage() {
     const { userType } = useSelector((state: RootState) => state.auth);
 
     // Используем usePublications для получения всех публикаций изначально
-    const { data: allPublications, isLoading: isLoadingAllPublications, error: errorAllPublications } = usePublications();
+    const { data: allPublications, isLoading: isLoadingAllPublications } = usePublications();
     // Используем useSearchPublications только когда есть поисковый запрос
-    const { data: searchResults, isLoading: isLoadingSearchResults, error: errorSearchResults } = useSearchPublications(searchTerm);
+    const { data: searchResults, isLoading: isLoadingSearchResults } = useSearchPublications(searchTerm);
 
     // Определяем, какие данные и состояние использовать на основе наличия поискового запроса
     const isLoading = searchTerm ? isLoadingSearchResults : isLoadingAllPublications;
-    const error = searchTerm ? errorSearchResults : errorAllPublications;
+    //const error = searchTerm ? errorSearchResults : errorAllPublications;
     const publications = searchTerm ? searchResults : allPublications;
 
     return (
@@ -33,7 +33,7 @@ function SearchPublicationsPage() {
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
             {isLoading && <div className="text-center">Loading...</div>}
-           
+
 
             <div className="list-group">
                 {publications?.map((pub: Publication) => (

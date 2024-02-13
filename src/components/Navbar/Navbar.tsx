@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { RootState } from '../../store'
 import { logout } from '../../store/authSlice'
 
-type Props = {}
 
-const Navbar = (props: Props) => {
+
+const Navbar = () => {
     
     const { userToken, userType } = useSelector((state: RootState) => state.auth);
 

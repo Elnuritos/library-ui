@@ -7,7 +7,7 @@ import { registerUser } from "../store/authSlice"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 
-type Props = {}
+
 
 export type RegisterFormData = {
     firstName: string;
@@ -29,7 +29,7 @@ const schema = yup
     })
     .required()
 
-const Registration = (props: Props) => {
+const Registration = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>({
         resolver: yupResolver(schema)
