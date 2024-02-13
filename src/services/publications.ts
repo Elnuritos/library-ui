@@ -2,7 +2,7 @@ import appAxios from "./appAxios";
 import {  Publication, PublicationForCreation } from "../utils/types";
 
 export const getPublications = async (): Promise<Publication[]> => {
-    return appAxios.get(`/publications/`).then(
+    return appAxios.get(`/publications`).then(
         (response) => {
             const data = response.data;
             console.log(data);
@@ -20,7 +20,7 @@ export const getPublicationById = async (id: string): Promise<Publication> => {
 };
 
 export const addPublication = async (publication: PublicationForCreation): Promise<PublicationForCreation> => {
-    return appAxios.post('/publications/', publication).then(
+    return appAxios.post('/publications', publication).then(
         (response) => {
             const data = response.data;
             console.log("BOOK ADDED IS ", data);
@@ -43,7 +43,7 @@ export const deletePublication = async (id: string) => {
 };
 
 export const searchPublicationsByTitle = async (title: string) => {
-    const response = await appAxios.get(`/api/publications/search?title=${title}`);
+    const response = await appAxios.get(`/publications/search?title=${title}`);
     return response.data;
   };
 

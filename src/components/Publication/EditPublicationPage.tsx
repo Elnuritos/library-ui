@@ -1,31 +1,29 @@
 import  { useState, useEffect } from 'react';
-import { useParams, useNavigate, Navigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { useUpdatePublication } from '../../hooks/useUpdatePublication';
 import { usePublicationById } from '../../hooks/usePublicationById';
 
 function EditPublicationPage() {
     const { id } = useParams();
-    const navigate = useNavigate();
     if (!id) {
         return <Navigate to="/home" replace />;
     }
 
-    const { data: publication } = usePublicationById(id);
+    const { data: publication, isLoading } = usePublicationById(id);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const updatePublication = useUpdatePublication();
+    const { mutateAsync: updatePub } = useUpdatePublication();
 
     useEffect(() => {
-        if (publication) {
+        if (!isLoading && publication) {
             setTitle(publication.title);
             setContent(publication.content);
         }
-    }, [publication]);
+    }, [publication, isLoading]);
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        await updatePublication.mutateAsync({ id, title, content });
-        navigate('/publications');
+        updatePub({ id, title, content });
     };
 
     return (

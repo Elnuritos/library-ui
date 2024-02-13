@@ -5,13 +5,19 @@ import { useAddPublication } from '../../hooks/useAddPublication';
 function AddPublicationPage() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const addPublication = useAddPublication();
   const navigate = useNavigate();
-
+  const { mutateAsync } = useAddPublication({
+    onSuccess: () => {
+      alert('Publication added successfully!');
+      navigate('/home');
+    },
+    onError: () => {
+      alert('An error occurred while adding the publication.');
+    },
+  });
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    await addPublication.mutateAsync({ title, content });
-    navigate('/publications');
+    mutateAsync({ title, content });
   };
 
  

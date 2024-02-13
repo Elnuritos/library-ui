@@ -7,6 +7,7 @@ import { LoginFormData } from '../pages/Login'
 const userToken = localStorage.getItem('userToken')
     ? localStorage.getItem('userToken')
     : null
+    const userType = localStorage.getItem('userType');
 
 const initialState = {
     loading: false,
@@ -14,6 +15,7 @@ const initialState = {
     userToken, // for storing the JWT
     error: null,
     success: false, // for monitoring the registration process.
+    userType
 }
 
 export const registerUser = createAsyncThunk(
@@ -44,6 +46,7 @@ export const login = createAsyncThunk(
                 body,
             )
             localStorage.setItem('userToken', data.jwt)
+            localStorage.setItem('userType', data.userType)
             return data
         } catch (error: any) {
             // return custom error message from backend if present
@@ -61,11 +64,13 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         logout: (state) => {
-            localStorage.removeItem('userToken') // deletes token from storage
+            localStorage.removeItem('userToken') 
+            localStorage.removeItem('userType')
             state.loading = false
             state.userInfo = null
             state.userToken = null
             state.error = null
+            state.userType = null; 
         }
     },
     extraReducers: (builder) => {
@@ -78,6 +83,7 @@ const authSlice = createSlice({
             state.loading = false
             state.userInfo = action.payload
             state.userToken = action.payload.jwt
+            state.userType = action.payload.userType;
         })
         builder.addCase(login.rejected, (state, action: any) => {
             state.loading = false
