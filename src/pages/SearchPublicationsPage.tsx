@@ -4,14 +4,24 @@ import { Publication } from '../utils/types';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import usePublications from '../hooks/usePublications';
 
 
 
 function SearchPublicationsPage() {
     const [searchTerm, setSearchTerm] = useState('');
-    const { data: publications, isLoading, error } = useSearchPublications(searchTerm);
     const navigate = useNavigate();
     const { userType } = useSelector((state: RootState) => state.auth);
+
+    // Используем usePublications для получения всех публикаций изначально
+    const { data: allPublications, isLoading: isLoadingAllPublications, error: errorAllPublications } = usePublications();
+    // Используем useSearchPublications только когда есть поисковый запрос
+    const { data: searchResults, isLoading: isLoadingSearchResults, error: errorSearchResults } = useSearchPublications(searchTerm);
+
+    // Определяем, какие данные и состояние использовать на основе наличия поискового запроса
+    const isLoading = searchTerm ? isLoadingSearchResults : isLoadingAllPublications;
+    const error = searchTerm ? errorSearchResults : errorAllPublications;
+    const publications = searchTerm ? searchResults : allPublications;
 
     return (
         <div className="container mt-3">
@@ -23,16 +33,7 @@ function SearchPublicationsPage() {
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
             {isLoading && <div className="text-center">Loading...</div>}
-            {typeof error === 'string' ? (
-                <div className="alert alert-danger" role="alert">
-                    Error occurred: {error}
-                </div>
-            ) : error instanceof Error ? (
-                <div className="alert alert-danger" role="alert">
-                    Error occurred: {error.message}
-                </div>
-            ) : null}
-
+           
 
             <div className="list-group">
                 {publications?.map((pub: Publication) => (
@@ -44,7 +45,7 @@ function SearchPublicationsPage() {
                         </button>
                         {userType === 'PUBLISHER' && (
                             <button onClick={(e) => {
-                                e.stopPropagation();
+                                e.stopPropagation(); // Предотвращаем всплывание события
                                 navigate(`/update-publication/${pub.id}`);
                             }} className="btn btn-secondary">
                                 Update
